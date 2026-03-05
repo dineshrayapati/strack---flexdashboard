@@ -1,0 +1,78 @@
+---
+title: "StrackR Data Dashboard"
+output: flexdashboard::flex_dashboard
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(DT)
+library(plotly)
+data(mtcars)
+```
+
+Row
+-------------------------------------
+
+### Total Cars
+
+```{r}
+valueBox(
+  value = nrow(mtcars),
+  caption = "Total Cars",
+  color = "blue"
+)
+```
+
+### Average MPG
+
+```{r}
+valueBox(
+  value = round(mean(mtcars$mpg),2),
+  caption = "Average MPG",
+  color = "green"
+)
+```
+
+### Average Horsepower
+
+```{r}
+valueBox(
+  value = round(mean(mtcars$hp),2),
+  caption = "Average HP",
+  color = "orange"
+)
+```
+
+Column
+-------------------------------------
+
+### Horsepower vs MPG (Interactive)
+
+```{r}
+plot_ly(
+  mtcars,
+  x = ~hp,
+  y = ~mpg,
+  type = "scatter",
+  mode = "markers"
+)
+```
+
+Column
+-------------------------------------
+
+### Cylinder Distribution
+
+```{r}
+plot_ly(
+  data = mtcars,
+  x = ~as.factor(cyl),
+  type = "histogram"
+)
+```
+
+### Cars Data Table
+
+```{r}
+datatable(mtcars)
+```
